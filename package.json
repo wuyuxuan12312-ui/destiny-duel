@@ -1,0 +1,22 @@
+{
+  "name": "destiny-duel-card-game",
+  "version": "1.1.0",
+  "description": "1v1 Online Turn-Based Card Game with Excel-Driven Balance System",
+  "scripts": {
+    "balance:sync": "python tools/sync_balance.py",
+    "simulate": "node simulate_matchups.js",
+    "start": "node server/server.js"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "keywords": [
+    "card-game",
+    "webrtc",
+    "turn-based",
+    "balance-system",
+    "excel-to-json"
+  ],
+  "author": "",
+  "license": "MIT"
+}

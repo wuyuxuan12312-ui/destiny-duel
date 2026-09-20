@@ -1,0 +1,44 @@
+[
+  {
+    "effect_type": "damage",
+    "name": "伤害效果",
+    "description": "通过DamageCalculator执行标准流水线伤害计算，支持连击数(hit_count)、反噬伤害(self_damage)、概率追伤(proc_chance)及触发条件(condition)。",
+    "target": "enemy"
+  },
+  {
+    "effect_type": "heal",
+    "name": "治疗效果",
+    "description": "恢复目标或自身的生命值，享受healBonus治疗加成修正，受禁疗(anti_heal)状态削减。",
+    "target": "self/enemy"
+  },
+  {
+    "effect_type": "shield",
+    "name": "护盾效果",
+    "description": "为目标或自身提供护盾吸收伤害，享受shieldBonus护盾加成修正，受禁魔领域(no_shield)状态限制。",
+    "target": "self/enemy"
+  },
+  {
+    "effect_type": "draw",
+    "name": "抽牌效果",
+    "description": "从玩家的摸牌堆中抽取指定数量的手牌至手牌区，不超过手牌上限(hand_card_limit)。",
+    "target": "self"
+  },
+  {
+    "effect_type": "energy",
+    "name": "能量效果",
+    "description": "使目标或自身的当前能量增加或减少，上限受max_energy规则限制。",
+    "target": "self/enemy"
+  },
+  {
+    "effect_type": "status",
+    "name": "状态效果",
+    "description": "通过StatusSystem挂载状态（如灼烧burn、剧毒poison、冰冻freeze、沉默silence等），或解除异常状态(remove_negative)。",
+    "target": "self/enemy"
+  },
+  {
+    "effect_type": "buff",
+    "name": "增益效果",
+    "description": "赋予战斗增益或被动响应（如专注加伤damage+N、受击减伤damage_reduce、反伤thorns、不屈最后意志unyielding等）。",
+    "target": "self/enemy"
+  }
+]

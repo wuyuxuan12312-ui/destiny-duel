@@ -1,0 +1,289 @@
+[
+  {
+    "characterId": "fire_warrior",
+    "cardId": "quick_attack",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "fire_warrior",
+    "cardId": "heavy_strike",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "fire_warrior",
+    "cardId": "flame_flask",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "fire_warrior",
+    "cardId": "dual_slash",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "fire_warrior",
+    "cardId": "base_fireball",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "fire_warrior",
+    "cardId": "base_inflame",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "fire_warrior",
+    "cardId": "base_strike",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "fire_warrior",
+    "cardId": "base_execute_judgment",
+    "count": 1,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "iron_guardian",
+    "cardId": "small_shield",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "iron_guardian",
+    "cardId": "base_iron_wave",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "iron_guardian",
+    "cardId": "base_shield_block",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "iron_guardian",
+    "cardId": "base_iron_bastion",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "iron_guardian",
+    "cardId": "base_retaliation_shield",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "iron_guardian",
+    "cardId": "defensive_stance",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "iron_guardian",
+    "cardId": "base_quick_guard",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "iron_guardian",
+    "cardId": "base_divine_heal",
+    "count": 1,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "forest_mage",
+    "cardId": "small_heal",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "forest_mage",
+    "cardId": "meditation",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "forest_mage",
+    "cardId": "base_second_wind",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "forest_mage",
+    "cardId": "small_shield",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "forest_mage",
+    "cardId": "base_shrug_it_off",
+    "count": 1,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "forest_mage",
+    "cardId": "base_inflame",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "forest_mage",
+    "cardId": "base_strike",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "forest_mage",
+    "cardId": "base_shield_block",
+    "count": 1,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "lightning_assassin",
+    "cardId": "quick_attack",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "lightning_assassin",
+    "cardId": "pierce",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "lightning_assassin",
+    "cardId": "dual_slash",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "lightning_assassin",
+    "cardId": "base_strike",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "lightning_assassin",
+    "cardId": "base_pommel_strike",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "lightning_assassin",
+    "cardId": "energy_surge",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "lightning_assassin",
+    "cardId": "base_cleave",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "lightning_assassin",
+    "cardId": "weaken",
+    "count": 1,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "ice_mage",
+    "cardId": "ice_spike",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "ice_mage",
+    "cardId": "weaken",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "ice_mage",
+    "cardId": "base_battle_cry",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "ice_mage",
+    "cardId": "base_fireball",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "ice_mage",
+    "cardId": "base_quick_guard",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "ice_mage",
+    "cardId": "base_iron_defense",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "ice_mage",
+    "cardId": "base_shield_block",
+    "count": 2,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "ice_mage",
+    "cardId": "poison_blade",
+    "count": 1,
+    "starter": true,
+    "enabled": true
+  },
+  {
+    "characterId": "forest_mage",
+    "cardId": "base_quick_guard",
+    "count": 1,
+    "starter": true,
+    "enabled": true
+  }
+]

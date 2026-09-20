@@ -1,0 +1,62 @@
+{
+  "mark_of_flame": {
+    "id": "mark_of_flame",
+    "name": "烈火之印",
+    "icon": "🔥",
+    "tag": "fire",
+    "description": "所有火系卡牌与烈焰造成的伤害额外 +2 点",
+    "modifiers": {
+      "fireDamageBonus": 2
+    }
+  },
+  "iron_bastion": {
+    "id": "iron_bastion",
+    "name": "坚钢壁障",
+    "icon": "🛡️",
+    "tag": "defense",
+    "description": "所有防御卡牌获得的护盾额外 +2 点",
+    "modifiers": {
+      "shieldBonus": 2
+    }
+  },
+  "fountain_of_life": {
+    "id": "fountain_of_life",
+    "name": "生命之泉",
+    "icon": "🌿",
+    "tag": "heal",
+    "description": "所有治疗卡牌恢复的生命值额外 +2 点",
+    "modifiers": {
+      "healBonus": 2
+    }
+  },
+  "swift_strike": {
+    "id": "swift_strike",
+    "name": "疾风战意",
+    "icon": "⚡",
+    "tag": "attack",
+    "description": "所有攻击卡牌与普通攻击基础伤害额外 +1 点",
+    "modifiers": {
+      "damageBonus": 1
+    }
+  },
+  "frost_embrace": {
+    "id": "frost_embrace",
+    "name": "极寒凝霜",
+    "icon": "❄️",
+    "tag": "ice",
+    "description": "所有冰系卡牌造成的伤害额外 +2 点",
+    "modifiers": {
+      "iceDamageBonus": 2
+    }
+  },
+  "venomous_edge": {
+    "id": "venomous_edge",
+    "name": "淬毒利刃",
+    "icon": "🐍",
+    "tag": "poison",
+    "description": "所有毒系卡牌造成的伤害额外 +2 点",
+    "modifiers": {
+      "poisonDamageBonus": 2
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "fire_warrior": {
+    "characterId": "fire_warrior",
+    "characterName": "烈焰剑士",
+    "role": "高攻击 / 爆发输出",
+    "maxHp": 96,
+    "baseAttack": 12,
+    "startingEnergy": 4,
+    "maxEnergy": 10,
+    "passiveId": "fire_warrior_passive",
+    "skillId": "fire_warrior_skill",
+    "damageBonus": 1.0,
+    "healBonus": 0.0,
+    "shieldBonus": 0.0,
+    "modifiers": {
+      "damageBonus": 1.0,
+      "healBonus": 0.0,
+      "shieldBonus": 0.0
+    },
+    "description": "拥有最高的初始常态伤害与技能斩杀力，能用灼烧持续折磨对手。",
+    "enabled": true
+  },
+  "iron_guardian": {
+    "characterId": "iron_guardian",
+    "characterName": "钢铁守卫",
+    "role": "防御 / 反制坚壁",
+    "maxHp": 108,
+    "baseAttack": 8,
+    "startingEnergy": 4,
+    "maxEnergy": 10,
+    "passiveId": "iron_guardian_passive",
+    "skillId": "iron_guardian_skill",
+    "damageBonus": 0.0,
+    "healBonus": 0.0,
+    "shieldBonus": 1.0,
+    "modifiers": {
+      "damageBonus": 0.0,
+      "healBonus": 0.0,
+      "shieldBonus": 1.0
+    },
+    "description": "拥有全英雄最高 HP 与减伤被动，凭坚壁化解爆发。",
+    "enabled": true
+  },
+  "forest_mage": {
+    "characterId": "forest_mage",
+    "characterName": "森林术士",
+    "role": "治疗 / 消耗续航",
+    "maxHp": 100,
+    "baseAttack": 10,
+    "startingEnergy": 4,
+    "maxEnergy": 10,
+    "passiveId": "forest_mage_passive",
+    "skillId": "forest_mage_skill",
+    "damageBonus": 0.0,
+    "healBonus": 1.0,
+    "shieldBonus": 0.0,
+    "modifiers": {
+      "damageBonus": 0.0,
+      "healBonus": 1.0,
+      "shieldBonus": 0.0
+    },
+    "description": "强大的自然恢复力，靠持久战拖垮对手。",
+    "enabled": true
+  },
+  "lightning_assassin": {
+    "characterId": "lightning_assassin",
+    "characterName": "雷电刺客",
+    "role": "敏捷 / 暴击高险",
+    "maxHp": 96,
+    "baseAttack": 10,
+    "startingEnergy": 4,
+    "maxEnergy": 10,
+    "passiveId": "lightning_assassin_passive",
+    "skillId": "lightning_assassin_skill",
+    "damageBonus": 1.0,
+    "healBonus": 0.0,
+    "shieldBonus": 0.0,
+    "modifiers": {
+      "damageBonus": 1.0,
+      "healBonus": 0.0,
+      "shieldBonus": 0.0
+    },
+    "description": "爆发刺客，普攻暴击与闪电突袭瞬发打出超高伤。",
+    "enabled": true
+  },
+  "ice_mage": {
+    "characterId": "ice_mage",
+    "characterName": "冰霜法师",
+    "role": "控制 / 极寒冰封",
+    "maxHp": 104,
+    "baseAttack": 9,
+    "startingEnergy": 4,
+    "maxEnergy": 10,
+    "passiveId": "ice_mage_passive",
+    "skillId": "ice_mage_skill",
+    "damageBonus": 0.0,
+    "healBonus": 0.0,
+    "shieldBonus": 1.0,
+    "modifiers": {
+      "damageBonus": 0.0,
+      "healBonus": 0.0,
+      "shieldBonus": 1.0
+    },
+    "description": "技能能冻结敌人使其在下回合无法行动。",
+    "enabled": true
+  }
+}

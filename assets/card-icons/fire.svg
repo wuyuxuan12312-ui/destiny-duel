@@ -1,0 +1,12 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor">
+  <!-- Outer Roaring Flame -->
+  <path d="M32 4 C32 4 36 14 31 22 C30 20 28 17 28 15 C28 15 20 21 21 32 C17 29 16 23 16 23 C11 31 10 42 16 50 C21 57 28 60 35 60 C45 60 53 53 54 42 C55 31 48 23 44 19 C44 24 40 27 37 28 C40 20 37 13 32 4 Z" opacity="0.9" />
+  <!-- Middle Flame Core -->
+  <path d="M34 26 C36 29 36 33 34 35 C32 37 29 37 28 35 C26 31 29 27 30 25 C26 29 23 35 24 41 C25 48 30 54 36 54 C43 54 48 48 47 41 C46 34 40 28 34 26 Z" opacity="0.75" />
+  <!-- Inner Hot Core -->
+  <path d="M34 38 C36 41 36 45 34 47 C32 49 29 48 29 45 C29 42 32 40 34 38 Z" fill="#ffffff" opacity="0.9" />
+  <!-- Floating Embers -->
+  <circle cx="21" cy="14" r="2" opacity="0.8" />
+  <circle cx="45" cy="11" r="1.5" opacity="0.8" />
+  <circle cx="50" cy="20" r="1.5" opacity="0.7" />
+</svg>

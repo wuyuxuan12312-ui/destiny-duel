@@ -1,0 +1,22 @@
+{
+  "singleCostGold": 100,
+  "tenPullCostGold": 900,
+  "rates": {
+    "common": 0.7,
+    "rare": 0.22,
+    "epic": 0.06,
+    "legendary": 0.02
+  },
+  "tenPullGuaranteeRarity": "rare",
+  "tenPullGuaranteeSlots": {
+    "rare": 0.7,
+    "epic": 0.23,
+    "legendary": 0.07
+  },
+  "hardPityCounter": 80,
+  "luckPerPull": 1.0,
+  "luckSoftPityStart": 60,
+  "luckSoftPityStep": 0.015,
+  "duplicateGoldPvp": 40,
+  "duplicateGoldMaxLevel": 60
+}

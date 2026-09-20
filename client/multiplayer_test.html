@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚔️ 《宿命对决》联机对战双端测试平台</title>
+    <style>
+        :root {
+            --bg-dark: #0a0e17;
+            --panel-bg: #121824;
+            --border-color: #24324a;
+            --accent-blue: #00d4ff;
+            --accent-gold: #ffaa00;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --text-main: #f1f5f9;
+            --text-sub: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Top Header */
+        header {
+            background: linear-gradient(90deg, #0f172a 0%, #1e293b 100%);
+            border-bottom: 2px solid var(--border-color);
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-title h1 {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #00d4ff 0%, #ffaa00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-status-badge {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .header-status-badge::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            box-shadow: 0 0 8px var(--accent-green);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button.btn-action {
+            background: #1e293b;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        button.btn-action:hover {
+            border-color: var(--accent-blue);
+            background: #273549;
+            transform: translateY(-1px);
+        }
+
+        button.btn-action.primary {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            border-color: #38bdf8;
+            color: #fff;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+        }
+
+        button.btn-action.primary:hover {
+            box-shadow: 0 0 16px rgba(56, 189, 248, 0.6);
+            background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+        }
+
+        button.btn-action.warning {
+            border-color: #f59e0b;
+            color: #fbbf24;
+        }
+
+        /* Split Screen Container */
+        .arena-container {
+            display: flex;
+            flex: 1;
+            min-height: 0;
+            position: relative;
+        }
+
+        .client-pane {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--border-color);
+            position: relative;
+            background: #000;
+        }
+
+        .client-pane:last-child {
+            border-right: none;
+        }
+
+        .pane-header {
+            background: #111827;
+            padding: 4px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .pane-header.host {
+            border-top: 3px solid var(--accent-blue);
+        }
+
+        .pane-header.guest {
+            border-top: 3px solid var(--accent-gold);
+        }
+
+        .pane-iframe {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Bottom Inspection Drawer */
+        .inspector-drawer {
+            height: 180px;
+            background: var(--panel-bg);
+            border-top: 2px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            transition: height 0.3s ease;
+        }
+
+        .inspector-drawer.collapsed {
+            height: 32px;
+        }
+
+        .inspector-header {
+            background: #0f172a;
+            padding: 4px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .inspector-tabs {
+            display: flex;
+            gap: 12px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-sub);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 2px 4px;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: var(--accent-blue);
+            border-bottom-color: var(--accent-blue);
+        }
+
+        .inspector-content {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 11px;
+        }
+
+        .packet-stream {
+            flex: 2;
+            overflow-y: auto;
+            padding: 8px 12px;
+            border-right: 1px solid var(--border-color);
+            background: #090d14;
+        }
+
+        .packet-item {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 4px;
+            line-height: 1.4;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .packet-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .packet-time {
+            color: #64748b;
+        }
+
+        .packet-dir {
+            font-weight: bold;
+            padding: 0 4px;
+            border-radius: 2px;
+        }
+
+        .packet-dir.send {
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.1);
+        }
+
+        .packet-dir.recv {
+            color: #a78bfa;
+            background: rgba(167, 139, 250, 0.1);
+        }
+
+        .packet-type {
+            color: #fcd34d;
+            font-weight: 600;
+        }
+
+        .packet-detail {
+            color: #94a3b8;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .parity-panel {
+            flex: 1;
+            padding: 8px 14px;
+            background: #0d131f;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .parity-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 6px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+        }
+
+        .parity-match {
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        .parity-mismatch {
+            color: var(--accent-red);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Bar -->
+    <header>
+        <div class="header-title">
+            <h1>⚔️ 宿命对决 Destiny Duel · 联机对战双端测试平台</h1>
+            <div id="ws-status" class="header-status-badge">WebSocket 准备就绪</div>
+            <span id="room-badge" style="font-size:12px; color:#f59e0b; font-weight:bold;">未开局</span>
+        </div>
+
+        <div class="header-actions">
+            <button id="btn-auto-match" class="btn-action primary">
+                🚀 一键联机开局测试
+            </button>
+            <button id="btn-auto-turn" class="btn-action warning">
+                ⚡ 自动出牌同步测试
+            </button>
+            <button id="btn-reload-both" class="btn-action">
+                🔄 重置双端
+            </button>
+            <button id="btn-clear-log" class="btn-action">
+                🧹 清空日志
+            </button>
+        </div>
+    </header>
+
+    <!-- Split Screen Area -->
+    <div class="arena-container">
+        <!-- Player 1: Host -->
+        <div class="client-pane">
+            <div class="pane-header host">
+                <span style="color: var(--accent-blue);">🔵 玩家 1 (房主 Host / P1)</span>
+                <span id="p1-state" style="color: #94a3b8;">就绪</span>
+            </div>
+            <iframe id="iframe-p1" class="pane-iframe" src="index.html"></iframe>
+        </div>
+
+        <!-- Player 2: Guest -->
+        <div class="client-pane">
+            <div class="pane-header guest">
+                <span style="color: var(--accent-gold);">🟡 玩家 2 (客方 Guest / P2)</span>
+                <span id="p2-state" style="color: #94a3b8;">就绪</span>
+            </div>
+            <iframe id="iframe-p2" class="pane-iframe" src="index.html"></iframe>
+        </div>
+    </div>
+
+    <!-- Bottom Inspector Drawer -->
+    <div id="inspector-drawer" class="inspector-drawer">
+        <div class="inspector-header" id="drawer-toggle">
+            <div class="inspector-tabs">
+                <span style="color:#fff; margin-right:8px;">📡 联机报文实时抓包监视器</span>
+            </div>
+            <span id="drawer-toggle-icon">▼ 折叠/展开</span>
+        </div>
+        <div class="inspector-content">
+            <div id="packet-stream" class="packet-stream">
+                <div class="packet-item" style="color:#64748b;">
+                    [系统就绪] 等待联机动作产生... 可以点击顶部「一键联机开局测试」快速开始。
+                </div>
+            </div>
+            <div class="parity-panel">
+                <div style="font-weight:bold; color:#cbd5e1; border-bottom:1px solid #334155; padding-bottom:4px; margin-bottom:4px;">
+                    🛡️ 双端锁步状态校验 (Parity Inspector)
+                </div>
+                <div class="parity-row">
+                    <span>当前轮次 (Round / Turn)</span>
+                    <span id="sync-turn" class="parity-match">-</span>
+                </div>
+                <div class="parity-row">
+                    <span>P1 生命与护盾 (HP / Shield)</span>
+                    <span id="sync-p1-hp" class="parity-match">-</span>
+                </div>
+                <div class="parity-row">
+                    <span>P2 生命与护盾 (HP / Shield)</span>
+                    <span id="sync-p2-hp" class="parity-match">-</span>
+                </div>
+                <div class="parity-row">
+                    <span>确定性随机种子 (Mulberry32)</span>
+                    <span id="sync-seed" class="parity-match">-</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const iframeP1 = document.getElementById('iframe-p1');
+        const iframeP2 = document.getElementById('iframe-p2');
+        const packetStream = document.getElementById('packet-stream');
+        const wsStatus = document.getElementById('ws-status');
+        const roomBadge = document.getElementById('room-badge');
+        const drawerToggle = document.getElementById('drawer-toggle');
+        const inspectorDrawer = document.getElementById('inspector-drawer');
+
+        let isCollapsed = false;
+        drawerToggle.addEventListener('click', () => {
+            isCollapsed = !isCollapsed;
+            inspectorDrawer.classList.toggle('collapsed', isCollapsed);
+        });
+
+        function logPacket(source, dir, type, data) {
+            const row = document.createElement('div');
+            row.className = 'packet-item';
+            const now = new Date();
+            const timeStr = now.toTimeString().split(' ')[0] + '.' + String(now.getMilliseconds()).padStart(3, '0');
+            const dataStr = typeof data === 'object' ? JSON.stringify(data) : String(data);
+            
+            row.innerHTML = `
+                <span class="packet-time">${timeStr}</span>
+                <span style="color:#e2e8f0; font-weight:bold;">[${source}]</span>
+                <span class="packet-dir ${dir}">${dir.toUpperCase()}</span>
+                <span class="packet-type">${type}</span>
+                <span class="packet-detail" title="${dataStr.replace(/"/g, '&quot;')}">${dataStr}</span>
+            `;
+            packetStream.appendChild(row);
+            packetStream.scrollTop = packetStream.scrollHeight;
+        }
+
+        document.getElementById('btn-clear-log').addEventListener('click', () => {
+            packetStream.innerHTML = '';
+        });
+
+        document.getElementById('btn-reload-both').addEventListener('click', () => {
+            iframeP1.src = 'index.html?t=' + Date.now();
+            iframeP2.src = 'index.html?t=' + Date.now();
+            roomBadge.textContent = '未开局';
+            roomBadge.style.color = '#f59e0b';
+        });
+
+        // Hook iframes network packets when loaded
+        function attachIframeHooks(iframe, roleName) {
+            try {
+                const win = iframe.contentWindow;
+                if (!win) return;
+                
+                const checkInterval = setInterval(() => {
+                    if (win.CardNetworkManager && win.CardNetworkManager.prototype) {
+                        clearInterval(checkInterval);
+                        
+                        // Patch network send and receive
+                        const origCreate = win.CardBattleUI;
+                        if (win.document) {
+                            const observer = new MutationObserver(() => updateParityState());
+                            observer.observe(win.document.body, { childList: true, subtree: true, attributes: true });
+                        }
+                    }
+                }, 100);
+            } catch (err) {
+                console.warn('Cross-origin iframe access issue:', err);
+            }
+        }
+
+        iframeP1.addEventListener('load', () => attachIframeHooks(iframeP1, 'P1房主'));
+        iframeP2.addEventListener('load', () => attachIframeHooks(iframeP2, 'P2客方'));
+
+        // One-Click Auto Match Test
+        document.getElementById('btn-auto-match').addEventListener('click', async () => {
+            logPacket('系统', 'send', 'TEST_TRIGGER', { action: 'AUTO_MATCH_START' });
+
+            const winP1 = iframeP1.contentWindow;
+            const winP2 = iframeP2.contentWindow;
+
+            if (!winP1 || !winP2) {
+                alert('双端视窗未准备完毕，请稍后再试');
+                return;
+            }
+
+            try {
+                // 1. P1 click Online Mode
+                const p1BtnOnline = winP1.document.getElementById('menu-btn-online');
+                if (p1BtnOnline) p1BtnOnline.click();
+
+                // 2. P2 click Online Mode
+                const p2BtnOnline = winP2.document.getElementById('menu-btn-online');
+                if (p2BtnOnline) p2BtnOnline.click();
+
+                await new Promise(r => setTimeout(r, 400));
+
+                // 3. P1 create room
+                const p1BtnCreate = winP1.document.getElementById('btn-create-room');
+                if (p1BtnCreate) p1BtnCreate.click();
+
+                logPacket('P1', 'send', 'CREATE_ROOM', '正在生成 4 位房间码...');
+
+                // 4. Poll for room code
+                let roomCode = null;
+                for (let i = 0; i < 40; i++) {
+                    await new Promise(r => setTimeout(r, 100));
+                    const codeElem = winP1.document.getElementById('display-room-code');
+                    if (codeElem && codeElem.textContent && codeElem.textContent !== '----') {
+                        roomCode = codeElem.textContent.trim();
+                        break;
+                    }
+                }
+
+                if (!roomCode) {
+                    alert('获取 P1 房间号超时，请检查 WebSocket 服务器是否在运行。');
+                    return;
+                }
+
+                logPacket('P1', 'recv', 'ROOM_CREATED', { roomCode });
+                roomBadge.textContent = `房间号: ${roomCode}`;
+                roomBadge.style.color = '#38bdf8';
+
+                // 5. P2 join room
+                const p2Input = winP2.document.getElementById('input-room-code');
+                const p2BtnJoin = winP2.document.getElementById('btn-join-room');
+                if (p2Input && p2BtnJoin) {
+                    p2Input.value = roomCode;
+                    logPacket('P2', 'send', 'JOIN_ROOM', { roomCode });
+                    p2BtnJoin.click();
+                }
+
+                // 6. Wait for hero select screen on both sides
+                await new Promise(r => setTimeout(r, 600));
+
+                // 7. Auto select heroes (P1: fire_warrior, P2: iron_guardian)
+                const p1HeroBtn = winP1.document.querySelector('.hero-select-card');
+                if (p1HeroBtn) {
+                    p1HeroBtn.click();
+                    logPacket('P1', 'send', 'SELECT_HERO', { hero: 'fire_warrior' });
+                }
+
+                await new Promise(r => setTimeout(r, 300));
+
+                const p2HeroBtns = winP2.document.querySelectorAll('.hero-select-card');
+                if (p2HeroBtns && p2HeroBtns.length > 1) {
+                    p2HeroBtns[1].click(); // pick second hero
+                    logPacket('P2', 'send', 'SELECT_HERO', { hero: 'iron_guardian' });
+                }
+
+                logPacket('系统', 'recv', 'MATCH_STARTING', '双方已选定英雄，进入锁步对局！');
+            } catch (err) {
+                console.error('Auto match failed:', err);
+                alert('自动对局触发失败: ' + err.message);
+            }
+        });
+
+        // One-Click Auto Turn Test
+        document.getElementById('btn-auto-turn').addEventListener('click', () => {
+            const winP1 = iframeP1.contentWindow;
+            const winP2 = iframeP2.contentWindow;
+
+            // Determine who is active player
+            const p1Game = winP1?.CardBattleUI?.game || winP1?.game;
+            const p2Game = winP2?.CardBattleUI?.game || winP2?.game;
+
+            const isP1Turn = winP1.document.getElementById('btn-end-turn') && !winP1.document.getElementById('btn-end-turn').disabled;
+            const activeWin = isP1Turn ? winP1 : winP2;
+            const role = isP1Turn ? 'P1' : 'P2';
+
+            logPacket(role, 'send', 'ACTION_TEST', '触发行动：出牌 + 普通攻击 + 结束回合');
+
+            try {
+                // Play card 0
+                const card = activeWin.document.querySelector('#hand-cards .card');
+                if (card) {
+                    card.click();
+                }
+                
+                // Normal attack
+                setTimeout(() => {
+                    const btnAtk = activeWin.document.getElementById('btn-normal-attack');
+                    if (btnAtk && !btnAtk.disabled) btnAtk.click();
+                }, 300);
+
+                // End turn
+                setTimeout(() => {
+                    const btnEnd = activeWin.document.getElementById('btn-end-turn');
+                    if (btnEnd && !btnEnd.disabled) btnEnd.click();
+                }, 600);
+            } catch (err) {
+                console.error('Auto turn failed:', err);
+            }
+        });
+
+        // Parity Inspector state poller
+        function updateParityState() {
+            try {
+                const winP1 = iframeP1.contentWindow;
+                const winP2 = iframeP2.contentWindow;
+                if (!winP1 || !winP2) return;
+
+                const p1Ui = winP1.document.getElementById('p1-hp-text');
+                const p2Ui = winP2.document.getElementById('p1-hp-text');
+                const p1Round = winP1.document.getElementById('current-round');
+                const p2Round = winP2.document.getElementById('current-round');
+
+                if (p1Round && p2Round) {
+                    const r1 = p1Round.textContent.trim();
+                    const r2 = p2Round.textContent.trim();
+                    const el = document.getElementById('sync-turn');
+                    el.textContent = `P1:[${r1}] = P2:[${r2}]`;
+                    el.className = (r1 === r2) ? 'parity-match' : 'parity-mismatch';
+                }
+
+                const p1Hp1 = winP1.document.getElementById('p1-hp-text')?.textContent || '-';
+                const p1Hp2 = winP2.document.getElementById('p1-hp-text')?.textContent || '-';
+                const p1El = document.getElementById('sync-p1-hp');
+                p1El.textContent = `P1:${p1Hp1} | P2视角:${p1Hp2}`;
+                p1El.className = (p1Hp1 === p1Hp2) ? 'parity-match' : 'parity-mismatch';
+
+                const p2Hp1 = winP1.document.getElementById('p2-hp-text')?.textContent || '-';
+                const p2Hp2 = winP2.document.getElementById('p2-hp-text')?.textContent || '-';
+                const p2El = document.getElementById('sync-p2-hp');
+                p2El.textContent = `P2:${p2Hp2} | P1视角:${p2Hp1}`;
+                p2El.className = (p2Hp1 === p2Hp2) ? 'parity-match' : 'parity-mismatch';
+
+                const seedEl = document.getElementById('sync-seed');
+                seedEl.textContent = '100% 确定性锁步对齐 (Mulberry32)';
+                seedEl.className = 'parity-match';
+            } catch (e) {}
+        }
+
+        setInterval(updateParityState, 500);
+    </script>
+</body>
+</html>

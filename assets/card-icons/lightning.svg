@@ -1,0 +1,14 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor">
+  <!-- Primary High-Voltage Bolt -->
+  <path d="M38 4 L16 32 H32 L22 60 L50 26 H34 L44 4 Z" opacity="0.95" />
+  <!-- Inner Plasma Highlight -->
+  <path d="M37 9 L22 30 H33 L27 49 L43 28 H33 L39 9 Z" fill="#ffffff" opacity="0.75" />
+  <!-- Secondary Electric Arcs -->
+  <path d="M12 24 L8 28 L14 30" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.8" />
+  <path d="M52 38 L56 42 L50 45" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.8" />
+  <path d="M46 14 L52 16 L48 20" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.9" />
+  <!-- Electric Sparks -->
+  <circle cx="10" cy="18" r="1.5" fill="#ffffff" />
+  <circle cx="55" cy="28" r="2" fill="#ffffff" />
+  <circle cx="18" cy="52" r="1.5" fill="#ffffff" />
+</svg>

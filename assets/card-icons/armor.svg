@@ -1,0 +1,16 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor">
+  <!-- Pauldrons (Shoulders) -->
+  <path d="M12 18 C14 12 21 11 25 14 L20 22 C15 22 13 20 12 18 Z" opacity="0.85" />
+  <path d="M52 18 C50 12 43 11 39 14 L44 22 C49 22 51 20 52 18 Z" opacity="0.85" />
+  <!-- Gorget / Neck -->
+  <path d="M25 12 C29 15 35 15 39 12 L41 18 C35 21 29 21 23 18 Z" opacity="0.9" />
+  <!-- Chest Plate Cuirass -->
+  <path d="M21 20 L43 20 L48 35 C48 44 42 53 32 58 C22 53 16 44 16 35 Z" opacity="0.95" />
+  <!-- Pectoral / Rib Plates -->
+  <path d="M24 25 C28 29 36 29 40 25 L41 33 C36 37 28 37 23 33 Z" opacity="0.4" />
+  <path d="M25 36 C29 39 35 39 39 36 L38 43 C35 45 29 45 26 43 Z" opacity="0.4" />
+  <!-- Center Ridge -->
+  <line x1="32" y1="20" x2="32" y2="52" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" opacity="0.6" />
+  <!-- Lower Faulds / Tassets -->
+  <path d="M26 46 L38 46 L35 55 C33 56 31 56 29 55 Z" fill="#ffffff" opacity="0.25" />
+</svg>

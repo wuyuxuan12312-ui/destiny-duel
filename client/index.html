@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>宿命对决 - 1v1 回合制卡牌对战 (支持异地联机)</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style-port.css">
+</head>
+<body>
+    <div id="app-container">
+        <!-- 0. Start Menu Screen (Primary Hub) -->
+        <div id="screen-start-menu" class="game-screen active">
+            <div class="start-menu-card">
+                <div class="menu-header">
+                    <div class="menu-brand">
+                        <div class="menu-brand-icon">⚔️</div>
+                        <div>
+                            <h1 class="menu-game-title">宿命对决</h1>
+                            <div class="menu-game-subtitle">DESTINY DUEL · 策略卡牌竞技RPG</div>
+                        </div>
+                    </div>
+                    <div class="menu-top-meta">
+                        <span id="menu-network-status" class="meta-badge pulse">🟢 云端数据库已同步</span>
+                        <a href="/admin" target="_blank" class="btn-menu-admin">🛠️ 管理后台</a>
+                    </div>
+                </div>
+
+                <div class="start-menu-grid">
+                    <!-- 0. PVE Campaign -->
+                    <div class="menu-card card-pve" id="menu-btn-pve">
+                        <div class="card-glow"></div>
+                        <div class="menu-card-icon">🗺️</div>
+                        <div class="menu-card-badge">章节讨伐</div>
+                        <h2 class="menu-card-title">第一章 · 宿命开端</h2>
+                        <p class="menu-card-desc">四关线性章节，逐关解锁。通关领金币宝石与卡牌，抽卡强化 PVE 卡组后再挑战首领。</p>
+                        <div class="menu-card-action">进入章节地图 →</div>
+                    </div>
+
+                    <!-- 1. AI Mode -->
+                    <div class="menu-card card-ai" id="menu-btn-ai">
+                        <div class="card-glow"></div>
+                        <div class="menu-card-icon">🤖</div>
+                        <div class="menu-card-badge">单人切磋</div>
+                        <h2 class="menu-card-title">单人 AI 模式</h2>
+                        <p class="menu-card-desc">与智能策略 AI 切磋战术，熟悉各职业机制与套牌配合，秒速开局无等待！</p>
+                        <div class="menu-card-action">立即对战 →</div>
+                    </div>
+
+                    <!-- 2. Local 2P Mode -->
+                    <div class="menu-card card-local" id="menu-btn-local">
+                        <div class="card-glow"></div>
+                        <div class="menu-card-icon">🎮</div>
+                        <div class="menu-card-badge">同屏对弈</div>
+                        <h2 class="menu-card-title">本地双人对战</h2>
+                        <p class="menu-card-desc">同台电脑或设备两人轮流出牌对战，面对面切磋交流与战术印证。</p>
+                        <div class="menu-card-action">开始对决 →</div>
+                    </div>
+
+                    <!-- 3. Online WebRTC Mode -->
+                    <div class="menu-card card-online" id="menu-btn-online">
+                        <div class="card-glow"></div>
+                        <div class="menu-card-icon">🌐</div>
+                        <div class="menu-card-badge">P2P 直连</div>
+                        <h2 class="menu-card-title">在线异地联机</h2>
+                        <p class="menu-card-desc">输入 4 位房间号或分享链接即可异地实时出牌对战，跨设备零门槛连线！</p>
+                        <div class="menu-card-action">进入联机大厅 →</div>
+                    </div>
+
+                    <!-- 4. Gacha System -->
+                    <div class="menu-card card-gacha" id="menu-btn-gacha">
+                        <div class="card-glow"></div>
+                        <div class="menu-card-icon">🎴</div>
+                        <div class="menu-card-badge">SSR 暴率提升</div>
+                        <h2 class="menu-card-title">卡牌抽取系统</h2>
+                        <p class="menu-card-desc">消耗金币开启命运符文秘宝包！体验单抽与十连召唤，集齐稀有卡组。</p>
+                        <div class="menu-card-action">祈愿抽取 →</div>
+                    </div>
+
+                    <!-- 5. Card Collection -->
+                    <div class="menu-card card-collection" id="menu-btn-collection">
+                        <div class="card-glow"></div>
+                        <div class="menu-card-icon">📚</div>
+                        <div class="menu-card-badge">全景档案</div>
+                        <h2 class="menu-card-title">卡牌图鉴收藏</h2>
+                        <p class="menu-card-desc">查看已解锁英雄详情、卡牌技能、状态机制与伤害说明，掌握对局先机。</p>
+                        <div class="menu-card-action">查看图鉴 →</div>
+                    </div>
+
+                    <!-- 6. Game Settings -->
+                    
+                    <!-- 7. Deck Builder & Upgrades -->
+                    <div class="menu-card card-deck" id="menu-btn-deck">
+                        <div class="card-glow"></div>
+                        <div class="menu-card-icon">🎴</div>
+                        <div class="menu-card-badge">策略构筑</div>
+                        <h2 class="menu-card-title">卡组编辑与强化</h2>
+                        <p class="menu-card-desc">为英雄自由挑选 15 张出战卡牌，消耗金币强化卡牌等级提升战力！</p>
+                        <div class="menu-card-action">构筑卡组 →</div>
+                    </div>
+
+                    <div class="menu-card card-settings" id="menu-btn-settings">
+                        <div class="card-glow"></div>
+                        <div class="menu-card-icon">⚙️</div>
+                        <div class="menu-card-badge">环境偏好</div>
+                        <h2 class="menu-card-title">游戏系统设置</h2>
+                        <p class="menu-card-desc">音效开关、战斗节奏调节、测试金币补给、数据同步源状态查看与管理。</p>
+                        <div class="menu-card-action">系统设置 →</div>
+                    </div>
+                </div>
+
+                <div class="menu-footer">
+                    <div class="footer-gold">🪙 玩家资产：<strong id="start-menu-gold">1000</strong> 金币</div>
+                    <div class="footer-version">宿命对决 Destiny Duel v3.0 · 章节讨伐 PVE 移植版</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 0.05 PVE Chapter Map Screen -->
+        <div id="screen-pve" class="game-screen pve-screen"></div>
+
+        <!-- 0.1 Online WebRTC Lobby Screen -->
+        <div id="screen-lobby" class="game-screen">
+            <div class="lobby-card">
+                <div class="lobby-header">
+                    <button id="btn-lobby-back-menu" class="btn-back-link" style="margin-bottom: 10px;">← 返回开始菜单</button>
+                    <h1 class="lobby-title">⚔️ 在线异地联机大厅</h1>
+                    <p class="lobby-subtitle">基于 WebRTC P2P 毫秒级直连 · 无需登录即刻对战</p>
+                </div>
+
+                <div class="mode-cards-container">
+                    <!-- Online Multiplayer Card -->
+                    <div class="mode-card online-card">
+                        <div class="mode-badge">🔥 异地联机 · 无需注册</div>
+                        <div class="mode-icon">🌐</div>
+                        <h2 class="mode-name">异地在线联机</h2>
+                        <p class="mode-desc">基于 WebRTC P2P 直连技术，只需输入 4 位房间号或发送链接，即可异地实时出牌对战！</p>
+                        
+                        <div class="online-flow-area">
+                            <!-- Host Area -->
+                            <div class="flow-box">
+                                <button id="btn-create-room" class="btn-lobby primary">创建新房间 (我是房主)</button>
+                                <div id="host-room-info" class="host-info-box" style="display: none;">
+                                    <div class="room-code-tag">房间号码: <strong id="display-room-code">----</strong></div>
+                                    <button id="btn-copy-link" class="btn-lobby-sm">📋 复制邀请链接 / 房号</button>
+                                    <div class="waiting-player-indicator">
+                                        <div class="lobby-spinner"></div>
+                                        <span>等待好友加入中...</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flow-divider">
+                                <span>或</span>
+                            </div>
+
+                            <!-- Join Area -->
+                            <div class="flow-box">
+                                <div class="join-input-group">
+                                    <input type="text" id="input-room-code" placeholder="输入 4 位房间号" maxlength="4" autocomplete="off" />
+                                    <button id="btn-join-room" class="btn-lobby accent">加入对战</button>
+                                </div>
+                                <div id="join-status-msg" class="lobby-status-text"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Local 1v1 Card -->
+                    <div class="mode-card local-card">
+                        <div class="mode-badge local-badge">同一台设备</div>
+                        <div class="mode-icon">🎮</div>
+                        <h2 class="mode-name">本地双人对决</h2>
+                        <p class="mode-desc">在同一台电脑或手机上轮流操作出牌，适合面对面切磋交流与熟悉卡牌！</p>
+                        <div style="flex: 1; display: flex; align-items: flex-end;">
+                            <button id="btn-start-local" class="btn-lobby secondary">开始本地对决</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lobby-footer">
+                    <span>💡 联机提示：直接将网页链接（带有房间参数）分享给朋友，朋友在手机或电脑浏览器点开即可自动连接！</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1. Hero Selection Screen -->
+        <div id="screen-hero-select" class="game-screen">
+            <div class="hero-select-header">
+                <button id="btn-hero-back-lobby" class="btn-back-link">← 返回大厅</button>
+                <h1>CHOOSE YOUR HERO</h1>
+                <h2 id="hero-select-title"><span>PLAYER 1</span> 请选择你的英雄</h2>
+                <div id="hero-select-network-status" class="online-sync-status"></div>
+                <button id="btn-hero-open-deck" class="btn-lobby-sm" style="margin-top: 8px; background: linear-gradient(135deg, #4f46e5, #0ea5e9); border: 1px solid #38bdf8;">🛠️ 编辑 15 张卡组与卡牌强化</button>
+            </div>
+            <div id="hero-cards-grid"></div>
+        </div>
+
+        <!-- 2. Battlefield Screen -->
+        <div id="screen-battle" class="game-screen">
+            <!-- Battlefield Top Bar for Online Info & Leave -->
+            <div id="battle-top-bar">
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <span id="battle-mode-badge" class="battle-badge">🎮 本地对战</span>
+                    <button id="btn-open-status" class="btn-status-toggle" title="点击查看自己与对手的详细状态、Buff/Debuff及实时数据">🔍 实时状态面板</button>
+                    <button id="btn-open-turn-history" class="btn-status-toggle accent" title="点击查看完整的逐回合战斗战果记录与明细">📜 回合详细战记</button>
+                </div>
+                <button id="btn-leave-battle" class="btn-leave">🏳️ 退出对决</button>
+            </div>
+
+            <!-- Opponent Section (Top) -->
+            <div id="opponent-section">
+                <div id="opp-character-box" class="character-card">
+                    <div id="opp-avatar" class="character-avatar">🛡️</div>
+                    <div class="character-details">
+                        <div class="name-row">
+                            <span id="opp-name" class="char-name">玩家 2</span>
+                            <span id="opp-hero-title" class="char-title">钢铁守卫</span>
+                        </div>
+                        <div class="bar-track">
+                            <div id="opp-hp-bar" class="bar-fill hp-fill" style="width: 100%;"></div>
+                            <span id="opp-hp-text" class="bar-text">34 / 34</span>
+                        </div>
+                        <div class="bar-track" style="height: 10px;">
+                            <div id="opp-shield-bar" class="bar-fill shield-fill" style="width: 0%;"></div>
+                            <span id="opp-shield-text" class="bar-text">0 / 10</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2px;">
+                            <div id="opp-energy-gems" class="energy-tray"></div>
+                            <div id="opp-buffs" class="buff-list"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="opp-hand-display"></div>
+            </div>
+
+            <!-- Central Battlefield (Turn Indicator & Combat Log) -->
+            <div id="center-battlefield">
+                <div id="turn-banner">
+                    <span id="turn-banner-text">【玩家 1】的回合 (第 1 轮)</span>
+                    <button id="btn-quick-history" class="btn-history-sm" title="点击查看完整对局回合明细">📜 回合明细</button>
+                </div>
+                <div id="combat-log-box">
+                    <div id="combat-log-list"></div>
+                </div>
+            </div>
+
+            <!-- Active Player Section (Bottom) -->
+            <div id="player-section">
+                <div id="player-controls-bar">
+                    <div id="act-character-box" class="character-card">
+                        <div id="act-avatar" class="character-avatar">🔥</div>
+                        <div class="character-details">
+                            <div class="name-row">
+                                <span id="act-name" class="char-name">玩家 1</span>
+                                <span id="act-hero-title" class="char-title">烈焰剑士</span>
+                            </div>
+                            <div class="bar-track">
+                                <div id="act-hp-bar" class="bar-fill hp-fill" style="width: 100%;"></div>
+                                <span id="act-hp-text" class="bar-text">28 / 28</span>
+                            </div>
+                            <div class="bar-track" style="height: 10px;">
+                                <div id="act-shield-bar" class="bar-fill shield-fill" style="width: 0%;"></div>
+                                <span id="act-shield-text" class="bar-text">0 / 10</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2px;">
+                                <div style="display: flex; align-items: center; gap: 6px;">
+                                    <div id="act-energy-gems" class="energy-tray"></div>
+                                    <span id="act-energy-count" style="font-size: 11px; font-weight: bold; color: #00ffff;">3/6</span>
+                                </div>
+                                <div id="act-buffs" class="buff-list"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons-group">
+                        <button id="btn-normal-atk" class="btn-action btn-atk">
+                            <span>⚔️ 普通攻击</span>
+                        </button>
+                        <button id="btn-hero-skill" class="btn-action btn-skill">
+                            <span>✨ 角色技能</span>
+                        </button>
+                        <button id="btn-end-turn" class="btn-action btn-end-turn">
+                            <span>⌛ 结束回合</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Hand Cards Deck Tray -->
+                <div id="act-hand-container"></div>
+            </div>
+        </div>
+
+        <!-- 3. Game Over Victory Modal -->
+        <div id="modal-game-over" class="modal-backdrop">
+            <div class="modal-box">
+                <div id="winner-avatar" class="winner-icon">🏆</div>
+                <h1 id="winner-title">玩家 1 获得胜利！</h1>
+                <p id="winner-sub">烈焰剑士战胜了对手！</p>
+
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>对决数据统计</th>
+                            <th>玩家 1</th>
+                            <th>玩家 2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>总造成伤害</td>
+                            <td id="stat-dmg-p1">0</td>
+                            <td id="stat-dmg-p2">0</td>
+                        </tr>
+                        <tr>
+                            <td>总恢复生命</td>
+                            <td id="stat-heal-p1">0</td>
+                            <td id="stat-heal-p2">0</td>
+                        </tr>
+                        <tr>
+                            <td>打出卡牌数</td>
+                            <td id="stat-cards-p1">0</td>
+                            <td id="stat-cards-p2">0</td>
+                        </tr>
+                        <tr>
+                            <td>战斗总轮数</td>
+                            <td colspan="2" id="stat-rounds" style="text-align: center; color: #00d4ff; font-weight: bold;">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div id="pve-reward-body" class="pve-reward-body" style="display:none;"></div>
+
+                <div class="game-over-history-section">
+                    <button id="btn-toggle-over-history" class="btn-toggle-history">📜 查看本局逐回合战报明细 ▼</button>
+                    <div id="game-over-history-list" class="game-over-history-list" style="display: none;"></div>
+                </div>
+
+                <div class="modal-actions-row">
+                    <button id="btn-restart-match" class="btn-modal primary">再来一局</button>
+                    <button id="btn-change-heroes" class="btn-modal secondary">返回选择角色</button>
+                    <button id="btn-game-over-lobby" class="btn-modal secondary">返回大厅</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Disconnect / Message Toast Modal -->
+        <div id="modal-toast" class="modal-backdrop">
+            <div class="modal-box" style="max-width: 380px;">
+                <div id="toast-icon" style="font-size: 40px; margin-bottom: 10px;">⚠️</div>
+                <h3 id="toast-title" style="color: #ffaa00; margin-bottom: 8px;">通知</h3>
+                <p id="toast-msg" style="color: #c0d8f0; font-size: 14px; margin-bottom: 20px;">提示信息</p>
+                <button id="btn-toast-confirm" class="btn-modal primary">确定</button>
+            </div>
+        </div>
+
+        <!-- Real-Time Status & Buff/Debuff Detail Modal -->
+        <div id="modal-status-detail" class="modal-backdrop">
+            <div class="modal-box status-modal-box">
+                <div class="status-modal-header">
+                    <h2 class="status-modal-title">🔍 实时战斗与对局回合明细面板</h2>
+                    <button id="btn-close-status-modal" class="status-close-btn">&times;</button>
+                </div>
+                <div class="status-tab-selector">
+                    <button id="tab-status-self" class="status-tab-btn active">🛡️ 我的状态 (玩家 1)</button>
+                    <button id="tab-status-opp" class="status-tab-btn">⚔️ 对手状态 (玩家 2)</button>
+                    <button id="tab-status-history" class="status-tab-btn history-tab">📜 逐回合详细战报 (Full History)</button>
+                </div>
+                <div id="status-panel-body" class="status-panel-body">
+                    <!-- Dynamically populated by JS -->
+                </div>
+                <div class="modal-actions-row" style="margin-top: 15px;">
+                    <button id="btn-status-confirm" class="btn-modal primary">关闭面板</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Gacha / Summon Modal -->
+        <div id="modal-gacha" class="modal-backdrop">
+            <div class="modal-box modal-gacha-box">
+                <div class="gacha-modal-header">
+                    <div class="gacha-title-wrap">
+                        <h2>🎴 卡牌祈愿召唤中心</h2>
+                        <span class="gold-indicator">🪙 金币: <strong id="player-gold-val">1000</strong></span>
+                    </div>
+                    <button id="btn-close-gacha" class="modal-close-btn">&times;</button>
+                </div>
+                <div id="gacha-packs-container" class="gacha-packs-grid"></div>
+                <div id="gacha-results-area" class="gacha-results-area" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- 6. Card Collection / Codex Modal -->
+        <div id="modal-collection" class="modal-backdrop">
+            <div class="modal-box modal-collection-box">
+                <div class="collection-modal-header">
+                    <div class="col-header-left">
+                        <h2>📚 卡牌与英雄图鉴收藏库</h2>
+                        <span id="col-summary-badge" class="col-summary-badge">全图鉴可检索 · 实时同步</span>
+                    </div>
+                    <button id="btn-close-collection" class="modal-close-btn">&times;</button>
+                </div>
+
+                <!-- Primary Tabs: Cards vs Heroes -->
+                <div class="collection-nav-tabs">
+                    <button class="col-tab-btn active" id="tab-col-cards" data-tab="cards">
+                        <span class="tab-icon">🎴</span> 战斗卡牌图鉴 (<span id="col-cards-count">16</span>)
+                    </button>
+                    <button class="col-tab-btn" id="tab-col-heroes" data-tab="heroes">
+                        <span class="tab-icon">🛡️</span> 参战英雄名册 (<span id="col-heroes-count">5</span>)
+                    </button>
+                </div>
+
+                <!-- Cards Filter Bar & Search Box -->
+                <div class="collection-toolbar" id="col-cards-toolbar">
+                    <div class="collection-filter-bar">
+                        <button class="btn-filter active" data-filter="all">全部类型</button>
+                        <button class="btn-filter" data-filter="attack">⚔️ 攻击卡</button>
+                        <button class="btn-filter" data-filter="defense">🛡️ 防御卡</button>
+                        <button class="btn-filter" data-filter="heal">💚 治疗卡</button>
+                        <button class="btn-filter" data-filter="special">✨ 特殊卡</button>
+                        <span class="filter-divider">|</span>
+                        <button class="btn-filter filter-rarity" data-rarity="all">全部品质</button>
+                        <button class="btn-filter filter-rarity" data-rarity="SSR">🌟 SSR</button>
+                        <button class="btn-filter filter-rarity" data-rarity="SR">🟣 SR</button>
+                        <button class="btn-filter filter-rarity" data-rarity="R">🔵 R</button>
+                        <button class="btn-filter filter-rarity" data-rarity="N">⚪ N</button>
+                        <span class="filter-divider">|</span>
+                        <button class="btn-filter filter-owned active" data-owned="all">全部状态</button>
+                        <button class="btn-filter filter-owned" data-owned="unlocked">✅ 已解锁</button>
+                        <button class="btn-filter filter-owned" data-owned="locked">🔒 未解锁</button>
+                    </div>
+                    <div class="collection-search-wrap">
+                        <input type="text" id="input-col-search" placeholder="🔍 搜索卡牌名称/效果..." />
+                    </div>
+                </div>
+
+                <!-- Main Display Grids -->
+                <div id="collection-cards-grid" class="collection-grid"></div>
+                <div id="collection-heroes-grid" class="collection-heroes-grid" style="display: none;"></div>
+
+                <!-- Detail Inspection Modal (Large Card/Hero Inspection) -->
+                <div id="modal-inspect-detail" class="modal-backdrop" style="display: none;">
+                    <div class="modal-box inspect-modal-box">
+                        <div class="inspect-header">
+                            <h3 id="inspect-title">卡牌详情检视</h3>
+                            <button id="btn-close-inspect" class="modal-close-btn">&times;</button>
+                        </div>
+                        <div id="inspect-body" class="inspect-body"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. Game System Settings Modal -->
+        <div id="modal-settings" class="modal-backdrop">
+            <div class="modal-box modal-settings-box">
+                <div class="settings-modal-header">
+                    <h2>⚙️ 游戏系统偏好设置</h2>
+                    <button id="btn-close-settings" class="modal-close-btn">&times;</button>
+                </div>
+                <div class="settings-body">
+                    <div class="setting-row">
+                        <div>
+                            <div class="setting-label">🔊 战斗音效反馈 (Sound FX)</div>
+                            <div class="setting-desc">击打、护盾破损、出牌及回合切换音效</div>
+                        </div>
+                        <input type="checkbox" id="setting-sound-fx" checked class="setting-checkbox" />
+                    </div>
+                    <div class="setting-row">
+                        <div>
+                            <div class="setting-label">🤖 单人 AI 思考决策速度</div>
+                            <div class="setting-desc">模拟人机对弈思考延时</div>
+                        </div>
+                        <select id="setting-ai-speed" class="setting-select">
+                            <option value="400">疾速 (400ms)</option>
+                            <option value="800" selected>标准 (800ms)</option>
+                            <option value="1500">慢速深思 (1500ms)</option>
+                        </select>
+                    </div>
+                    <div class="setting-row">
+                        <div>
+                            <div class="setting-label">🌐 数据库云端同步状态</div>
+                            <div class="setting-desc">服务端 SQLite 动态配置连接</div>
+                        </div>
+                        <span id="setting-db-status" class="status-tag online">已连接 /api/game/config</span>
+                    </div>
+                </div>
+                <div class="modal-actions-row" style="margin-top: 20px;">
+                    <button id="btn-save-settings" class="btn-modal primary">保存并返回</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+        <!-- 7. Deck Builder & Card Upgrade Modal -->
+        <div id="modal-deck-builder" class="modal-backdrop">
+            <div class="modal-dialog-large deck-builder-dialog">
+                <div class="modal-header-banner">
+                    <div class="banner-title-wrap">
+                        <h2>🛠️ 卡组构筑与卡牌强化 (15张限定)</h2>
+                        <span class="banner-subtitle">自由配置每个英雄的 15 张对战卡牌 · 强化卡牌属性 (数据驱动)</span>
+                    </div>
+                    <div class="deck-header-gold">
+                        🪙 资产：<strong id="deck-builder-gold">1000</strong> 金币
+                    </div>
+                    <button id="btn-close-deck-builder" class="btn-modal-close">✕</button>
+                </div>
+
+                <div class="deck-builder-body">
+                    <!-- Hero Tabs -->
+                    <div class="deck-hero-tabs-wrap">
+                        <label class="section-micro-label" style="font-size: 12px; color: #94a3b8; font-weight: 700;">当前配置英雄：</label>
+                        <div id="deck-hero-tabs" class="deck-hero-tabs"></div>
+                    </div>
+
+                    <!-- Selected 15 Cards Deck Area -->
+                    <div class="current-deck-section">
+                        <div class="deck-section-header">
+                            <div id="deck-count-display" class="deck-count-text">已选择: <strong>0 / 15</strong> 张</div>
+                            <div class="deck-action-buttons">
+                                <button id="btn-recommend-deck" class="btn-deck-action">🎲 一键推荐15张</button>
+                                <button id="btn-reset-deck" class="btn-deck-action danger">🗑️ 清空卡组</button>
+                                <button id="btn-save-deck" class="btn-deck-action save">💾 保存当前卡组</button>
+                            </div>
+                        </div>
+                        <div id="deck-slots-grid" class="deck-slots-grid"></div>
+                    </div>
+
+                    <!-- Available Card Pool & Upgrades -->
+                    <div class="card-pool-section">
+                        <div class="pool-section-header">
+                            <div class="pool-title-group">
+                                <h3>📦 可用卡牌库 (点击加入卡组或升级)</h3>
+                                <span class="pool-note">每种卡牌最多加入 2 张，升级可提高伤害/护盾/治疗</span>
+                            </div>
+                            <div id="deck-tag-filters" class="deck-tag-filters">
+                                <button class="tag-filter-btn active" data-tag="all">全部</button>
+                                <button class="tag-filter-btn pool-filter" data-tag="base">🌟 基础卡</button>
+                                <button class="tag-filter-btn pool-filter" data-tag="pvp">⚔️ PVP竞技</button>
+                                <button class="tag-filter-btn pool-filter" data-tag="pve">🌿 PVE成长</button>
+                                <span class="filter-divider">|</span>
+                                <button class="tag-filter-btn" data-tag="fire">🔥 火焰</button>
+                                <button class="tag-filter-btn" data-tag="ice">❄️ 冰霜</button>
+                                <button class="tag-filter-btn" data-tag="poison">🐍 剧毒</button>
+                                <button class="tag-filter-btn" data-tag="defense">🛡️ 防御</button>
+                                <button class="tag-filter-btn" data-tag="heal">🌿 治疗</button>
+                                <button class="tag-filter-btn" data-tag="attack">🗡️ 攻击</button>
+                            </div>
+                        </div>
+                        <div id="deck-cardpool-grid" class="deck-cardpool-grid"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. Pre-battle Blessing Selection Modal -->
+        <div id="modal-blessing-select" class="modal-backdrop">
+            <div class="modal-dialog-large blessing-dialog">
+                <div class="modal-header-banner" style="text-align: center; position: relative;">
+                    <div class="banner-title-wrap" style="width: 100%;">
+                        <h2 style="font-size: 22px; color: #a78bfa;">✨ 命运恩赐 · 战前祝福选择</h2>
+                        <span class="banner-subtitle">选择一项强力被动祝福，直接强化英雄的 Modifier 战斗修正属性！</span>
+                    </div>
+                    <button id="btn-close-blessing" class="btn-modal-close">✕</button>
+                </div>
+                <div class="blessing-modal-body">
+                    <div id="blessing-cards-grid" class="blessing-cards-grid"></div>
+                </div>
+                <div class="modal-actions-row" style="margin-top: 20px; justify-content: center; gap: 12px;">
+                    <button id="btn-skip-blessing" class="btn-modal secondary" style="min-width: 140px;">⏩ 跳过直接开战</button>
+                    <button id="btn-confirm-blessing" class="btn-modal primary" disabled style="opacity: 0.5; min-width: 220px;">请先点击选择一项祝福</button>
+                </div>
+            </div>
+        </div>
+
+    <!-- 1. Configuration & Dependencies -->
+    <script src="data/game_config.js"></script>
+    <script src="js/peerjs.min.js"></script>
+    <script src="js/audio.js"></script>
+
+    <!-- 2. Core Architecture Modules -->
+    <script src="src/core/EventBus.js"></script>
+    <script src="src/core/Registry.js"></script>
+    <script src="src/core/GameState.js"></script>
+    <script src="src/core/PlayerCardInstance.js"></script>
+    <script src="src/core/MathUtil.js"></script>
+
+    <!-- 3. Domain Systems -->
+    <script src="src/systems/DamageCalculator.js"></script>
+    <script src="src/systems/StatusSystem.js"></script>
+    <script src="src/systems/EffectResolver.js"></script>
+    <script src="src/systems/CardEffectEngine.js"></script>
+    <script src="src/systems/SkillSystem.js"></script>
+    <script src="src/systems/CardSystem.js"></script>
+    <script src="src/systems/HeroManager.js"></script>
+    <script src="src/systems/TurnSystem.js"></script>
+    <script src="src/systems/CombatSystem.js"></script>
+    <script src="src/systems/GachaSystem.js"></script>
+    <script src="src/systems/PveSystem.js"></script>
+
+    <!-- 4. Game Adapters, Network, AI, Gacha & UI -->
+    <script src="js/hero.js"></script>
+    <script src="js/card.js"></script>
+    <script src="js/network.js"></script>
+    <script src="js/ai.js"></script>
+    <script src="js/gacha.js"></script>
+    <script src="js/deck_builder.js"></script>
+    <script src="js/pve.js"></script>
+    <script src="js/wallet.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const game = new CardGame();
+            const network = new CardNetworkManager();
+            const ui = new CardBattleUI(game, network);
+        });
+    </script>
+</body>
+</html>

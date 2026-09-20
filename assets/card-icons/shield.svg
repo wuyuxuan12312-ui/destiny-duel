@@ -1,0 +1,14 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor">
+  <!-- Outer Shield Frame -->
+  <path d="M32 4 L53 11 C53 34 44 49 32 60 C20 49 11 34 11 11 Z" opacity="0.95" />
+  <!-- Inner Shield Inset Plate -->
+  <path d="M32 9 L48 15 C48 33 40 45 32 54 C24 45 16 33 16 15 Z" opacity="0.4" />
+  <!-- Heraldic Cross / Emblem -->
+  <path d="M30 16 H34 V28 H44 V32 H34 V46 H30 V32 H20 V28 H30 Z" fill="#ffffff" opacity="0.85" />
+  <!-- Metallic Highlights / Bevel -->
+  <path d="M32 9 L48 15 L32 54 Z" fill="#ffffff" opacity="0.15" />
+  <!-- Corner Rivets -->
+  <circle cx="16" cy="15" r="1.5" fill="#ffffff" opacity="0.8" />
+  <circle cx="48" cy="15" r="1.5" fill="#ffffff" opacity="0.8" />
+  <circle cx="32" cy="53" r="1.5" fill="#ffffff" opacity="0.8" />
+</svg>

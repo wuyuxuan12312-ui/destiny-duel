@@ -1,0 +1,395 @@
+/* ==========================================================================
+   v3.0 · 移植内容视觉层：元素卡面、传说稀有度、PVE 章节地图、战斗反馈打磨
+   与 style.css 一同加载；这里只放本次移植新增的视觉语汇，不覆盖既有规则。
+   ========================================================================== */
+
+:root {
+    --el-fire: #ff6b35;
+    --el-ice: #4dd2ff;
+    --el-poison: #7ed957;
+    --el-shield: #5c8fd6;
+    --el-heal: #34d399;
+    --el-energy: #ffd23f;
+    --el-arcane: #c084fc;
+    --el-strike: #e8ecf4;
+    --el-brute: #ff9f43;
+    --el-mindgame: #00e5d0;
+    --el-blood: #e0475b;
+}
+
+/* ---- 1. 十一种元素卡面：渐变打底 + 可选真插画 ---- */
+.battle-card .art-backdrop { position: absolute; inset: 0; transition: filter .35s ease; }
+
+.theme-element-fire .art-backdrop     { background: radial-gradient(circle at 50% 68%, #ff8a3d 0%, #b32b00 45%, #1a0500 100%); }
+.theme-element-ice .art-backdrop      { background: radial-gradient(circle at 50% 40%, #9df0ff 0%, #1b6ea8 48%, #04121f 100%); }
+.theme-element-poison .art-backdrop   { background: radial-gradient(circle at 50% 72%, #a6ff6b 0%, #2f7d1c 50%, #0a1503 100%); }
+.theme-element-shield .art-backdrop   { background: radial-gradient(circle at 50% 58%, #a8cdf5 0%, #33568c 52%, #0a1322 100%); }
+.theme-element-heal .art-backdrop     { background: radial-gradient(circle at 50% 62%, #86ffd0 0%, #17845c 50%, #04150f 100%); }
+.theme-element-energy .art-backdrop   { background: radial-gradient(circle at 50% 38%, #fff0a8 0%, #b8860b 50%, #1b1400 100%); }
+.theme-element-arcane .art-backdrop   { background: radial-gradient(circle at 50% 50%, #e0b3ff 0%, #6b2fa8 52%, #140620 100%); }
+.theme-element-strike .art-backdrop   { background: radial-gradient(circle at 50% 60%, #dfe8f5 0%, #5b6b80 50%, #0c1118 100%); }
+.theme-element-brute .art-backdrop    { background: radial-gradient(circle at 50% 66%, #ffc182 0%, #a85a11 50%, #1d0f02 100%); }
+.theme-element-mindgame .art-backdrop { background: radial-gradient(circle at 50% 46%, #9ffff0 0%, #0a7f78 50%, #021518 100%); }
+.theme-element-blood .art-backdrop    { background: radial-gradient(circle at 50% 64%, #ff8f9d 0%, #8e1a2b 52%, #190306 100%); }
+
+.theme-element-fire .art-halo      { box-shadow: 0 0 26px 6px rgba(255, 107, 53, .42); }
+.theme-element-ice .art-halo       { box-shadow: 0 0 26px 6px rgba(77, 210, 255, .42); }
+.theme-element-poison .art-halo    { box-shadow: 0 0 26px 6px rgba(126, 217, 87, .38); }
+.theme-element-shield .art-halo    { box-shadow: 0 0 26px 6px rgba(92, 143, 214, .42); }
+.theme-element-heal .art-halo      { box-shadow: 0 0 26px 6px rgba(52, 211, 153, .40); }
+.theme-element-energy .art-halo    { box-shadow: 0 0 28px 7px rgba(255, 210, 63, .45); }
+.theme-element-arcane .art-halo    { box-shadow: 0 0 26px 6px rgba(192, 132, 252, .42); }
+.theme-element-strike .art-halo    { box-shadow: 0 0 22px 5px rgba(232, 236, 244, .30); }
+.theme-element-brute .art-halo     { box-shadow: 0 0 26px 6px rgba(255, 159, 67, .40); }
+.theme-element-mindgame .art-halo  { box-shadow: 0 0 30px 8px rgba(0, 229, 208, .45); }
+.theme-element-blood .art-halo     { box-shadow: 0 0 26px 6px rgba(224, 71, 91, .42); }
+
+/* The generated illustrations layer on top of the gradient and fade in only once the file has
+   actually decoded, so a missing asset leaves the procedural theme fully intact and no card can
+   ever render broken. */
+.card-art-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity .5s ease, transform .35s ease;
+    pointer-events: none;
+}
+.card-art-img.is-loaded { opacity: .9; mix-blend-mode: screen; }
+.battle-card:hover .card-art-img.is-loaded { transform: scale(1.05); }
+
+/* ---- 2. 传说（SSR）稀有度：此前没有任何对应样式 ---- */
+.battle-card.tier-legendary {
+    border-color: rgba(255, 215, 0, .78);
+    background: linear-gradient(160deg, #2a1c05 0%, #141a26 42%, #2b1405 100%);
+    box-shadow: 0 0 22px rgba(255, 200, 60, .35), inset 0 0 20px rgba(255, 200, 60, .12);
+}
+.battle-card.tier-legendary .card-tier-glow {
+    background: conic-gradient(from 0deg, #ffd700, #ff8c00, #fff6c2, #ff8c00, #ffd700);
+    animation: legendaryRotate 5.5s linear infinite;
+    opacity: .55;
+}
+.battle-card.tier-legendary .card-corner-trim.tl,
+.battle-card.tier-legendary .card-corner-trim.tr,
+.battle-card.tier-legendary .card-corner-trim.bl,
+.battle-card.tier-legendary .card-corner-trim.br { border-color: #ffd700; }
+.battle-card.tier-legendary .card-name-bar { color: #ffe9a8; text-shadow: 0 0 10px rgba(255, 210, 80, .65); }
+@keyframes legendaryRotate { to { transform: rotate(360deg); } }
+
+/* 稀有度角标：内部仍用 common/rare/epic/legendary，展示口径统一为 N/R/SR/SSR */
+.rarity-seal {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    z-index: 4;
+    min-width: 26px;
+    padding: 1px 6px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .5px;
+    color: #06090f;
+    text-align: center;
+}
+.rarity-seal.seal-common    { background: linear-gradient(135deg, #9fb2c9, #6b7f97); }
+.rarity-seal.seal-rare      { background: linear-gradient(135deg, #6cc4ff, #2a7fd0); }
+.rarity-seal.seal-epic      { background: linear-gradient(135deg, #d9a3ff, #8a3fd0); }
+.rarity-seal.seal-legendary { background: linear-gradient(135deg, #ffe58a, #e0a300); box-shadow: 0 0 12px rgba(255, 210, 60, .7); }
+
+.card-pool-tag {
+    position: absolute;
+    bottom: 4px;
+    right: 6px;
+    z-index: 4;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .4px;
+    padding: 1px 5px;
+    border-radius: 6px;
+    color: #cfe4ff;
+    background: rgba(12, 22, 38, .8);
+    border: 1px solid rgba(120, 165, 220, .35);
+}
+.card-pool-tag.pool-pve { color: #ffe9a8; border-color: rgba(224, 163, 0, .5); }
+.card-pool-tag.pool-pvp { color: #a8e9ff; border-color: rgba(0, 180, 220, .45); }
+
+/* ---- 3. 能量水晶：把数字变成可数的水晶 ---- */
+.energy-gem-row { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
+.energy-gem {
+    width: 15px;
+    height: 19px;
+    border-radius: 4px 4px 8px 8px / 4px 4px 11px 11px;
+    background: linear-gradient(160deg, #7fe9ff 0%, #1b7fb8 55%, #06283d 100%);
+    box-shadow: 0 0 9px rgba(80, 210, 255, .75), inset 0 1px 2px rgba(255, 255, 255, .65);
+    transform: rotate(-4deg);
+    transition: opacity .25s ease, transform .25s ease, background .25s ease;
+}
+.energy-gem.is-spent {
+    background: linear-gradient(160deg, #2b3b4d 0%, #131d29 100%);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .8);
+    opacity: .45;
+    transform: rotate(-4deg) scale(.86);
+}
+.energy-gem.is-over {
+    background: linear-gradient(160deg, #ffe08a, #d69a00 60%, #4a3000);
+    box-shadow: 0 0 11px rgba(255, 205, 60, .8), inset 0 1px 2px rgba(255, 255, 255, .6);
+}
+
+/* ---- 4. 血条掉血拖影 ---- */
+.hp-bar-fill, .shield-bar-fill { transition: width .5s cubic-bezier(.22, .71, .31, 1); }
+.hp-bar-track { position: relative; overflow: hidden; }
+.hp-bar-ghost {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, .26);
+    transition: width .95s ease-out .18s;
+}
+
+/* ---- 5. 回合切换横幅 ---- */
+.turn-banner { animation: bannerSlide .5s cubic-bezier(.2, .8, .2, 1); }
+.turn-banner.is-player { border-left: 3px solid var(--el-mindgame); box-shadow: -6px 0 18px rgba(0, 229, 208, .28); }
+.turn-banner.is-enemy  { border-left: 3px solid var(--el-blood); box-shadow: -6px 0 18px rgba(224, 71, 91, .28); }
+@keyframes bannerSlide { from { opacity: 0; transform: translateX(-26px); } to { opacity: 1; transform: none; } }
+
+/* ---- 6. 机制标记：分支/态势、延迟反应、多段、自伤 ---- */
+.card-mech-badges { display: flex; gap: 3px; flex-wrap: wrap; margin-top: 2px; }
+.mech-badge {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 5px;
+    background: rgba(10, 18, 30, .82);
+    border: 1px solid rgba(140, 180, 225, .3);
+    color: #bcd6f0;
+}
+.mech-badge.mech-branch   { border-color: rgba(0, 229, 208, .55); color: #8ff3e8; }
+.mech-badge.mech-reaction { border-color: rgba(192, 132, 252, .55); color: #dcc0ff; }
+.mech-badge.mech-multi    { border-color: rgba(255, 159, 67, .55); color: #ffcf9a; }
+.mech-badge.mech-recoil   { border-color: rgba(224, 71, 91, .6); color: #ffb3bd; }
+
+/* ---- 7. PVE 章节地图 ---- */
+.pve-screen {
+    display: none;
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px clamp(14px, 3vw, 40px) 26px;
+    overflow-y: auto;
+    background:
+        radial-gradient(1100px 520px at 50% -12%, rgba(72, 40, 120, .55), transparent 70%),
+        radial-gradient(900px 620px at 12% 108%, rgba(14, 78, 96, .48), transparent 68%),
+        linear-gradient(180deg, #0b111c 0%, #070a12 100%);
+}
+.pve-screen.active { display: flex; }
+
+.pve-map-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(120, 165, 220, .16);
+}
+.pve-back-btn {
+    padding: 9px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    background: rgba(16, 26, 42, .85);
+    color: #b9d4f0;
+    border: 1px solid rgba(120, 165, 220, .34);
+    font-size: 13px;
+    font-weight: 700;
+    transition: background .2s ease, color .2s ease, transform .2s ease;
+}
+.pve-back-btn:hover { background: rgba(28, 46, 72, .95); color: #eaf5ff; transform: translateX(-2px); }
+.pve-chapter-kicker { font-size: 11px; letter-spacing: 3.4px; color: #6f8bab; font-weight: 700; }
+.pve-chapter-title h2 { margin: 2px 0 0; font-size: clamp(19px, 2.6vw, 27px); color: #eaf5ff; text-shadow: 0 0 18px rgba(90, 180, 255, .35); }
+.pve-chapter-meta { display: flex; gap: 10px; flex-wrap: wrap; }
+.pve-meta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1px;
+    padding: 7px 13px;
+    border-radius: 10px;
+    background: rgba(12, 20, 33, .8);
+    border: 1px solid rgba(120, 165, 220, .2);
+}
+.pve-meta-item span { font-size: 10px; letter-spacing: .8px; color: #7d97b6; }
+.pve-meta-item b { font-size: 15px; color: #e7f3ff; }
+.pve-meta-gold b { color: #ffd76e; }
+
+.pve-track { position: relative; padding: 10px 0 4px; }
+.pve-track-line {
+    position: absolute;
+    left: 6%;
+    right: 6%;
+    top: 108px;
+    height: 3px;
+    border-radius: 3px;
+    background: repeating-linear-gradient(90deg, rgba(120, 170, 230, .42) 0 12px, transparent 12px 24px);
+    opacity: .6;
+}
+.pve-node-grid { position: relative; display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(228px, 1fr)); }
+
+.pve-node {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 16px 15px 15px;
+    border-radius: 16px;
+    cursor: pointer;
+    text-align: center;
+    background: linear-gradient(165deg, rgba(24, 36, 55, .96), rgba(10, 15, 25, .98));
+    border: 1px solid rgba(120, 165, 220, .22);
+    transition: transform .25s cubic-bezier(.2, .8, .2, 1), box-shadow .25s ease, border-color .25s ease;
+}
+.pve-node:hover:not(.is-locked),
+.pve-node:focus-visible:not(.is-locked) {
+    transform: translateY(-7px) scale(1.015);
+    border-color: rgba(150, 210, 255, .6);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, .6), 0 0 30px rgba(70, 170, 255, .2);
+    outline: none;
+}
+.pve-node.is-locked { cursor: not-allowed; filter: grayscale(.72) brightness(.62); }
+.pve-node-aura {
+    position: absolute;
+    inset: -45% -25% auto;
+    height: 150%;
+    z-index: -1;
+    opacity: .5;
+    background: radial-gradient(circle at 50% 30%, var(--node-accent, #4aa3ff), transparent 62%);
+    filter: blur(22px);
+}
+.pve-node.element-fire   { --node-accent: var(--el-fire);   --node-line: var(--el-fire); }
+.pve-node.element-shield { --node-accent: var(--el-shield); --node-line: var(--el-shield); }
+.pve-node.element-arcane { --node-accent: var(--el-arcane); --node-line: var(--el-arcane); }
+.pve-node.element-strike { --node-accent: #7fa6cc;          --node-line: #7fa6cc; }
+
+.pve-node-code {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    color: var(--node-line);
+    opacity: .85;
+}
+.pve-node-portrait {
+    width: 68px;
+    height: 68px;
+    margin: 10px auto 8px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(circle at 50% 38%, rgba(255, 255, 255, .16), rgba(0, 0, 0, .45));
+    border: 2px solid var(--node-line);
+    overflow: hidden;
+}
+.pve-node-portrait img { width: 100%; height: 100%; object-fit: cover; }
+.pve-node-icon { font-size: 30px; line-height: 1; }
+.pve-node-name { margin: 2px 0 3px; font-size: 17px; color: #f0f7ff; }
+.pve-node-enemy { font-size: 12px; color: #93aecb; margin-bottom: 8px; }
+.pve-node-hp {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #7f9ab8;
+    padding: 5px 9px;
+    border-radius: 7px;
+    background: rgba(6, 11, 20, .68);
+    margin-bottom: 7px;
+}
+.pve-node-hp b { color: #ff8f9d; }
+.pve-node-stars { font-size: 14px; letter-spacing: 2px; color: #ffd76e; margin-bottom: 6px; min-height: 17px; }
+.pve-node-rewards { display: flex; justify-content: center; gap: 9px; font-size: 11px; color: #b6cbe3; flex-wrap: wrap; }
+.pve-node-desc {
+    margin: 9px 0 11px;
+    font-size: 11.5px;
+    line-height: 1.55;
+    color: #86a2c0;
+    min-height: 50px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.pve-node-cta {
+    padding: 9px;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .5px;
+    color: #05121c;
+    background: linear-gradient(135deg, #8fe4ff, #2f9fd6);
+    transition: filter .2s ease;
+}
+.pve-node:hover .pve-node-cta { filter: brightness(1.12); }
+.pve-node.is-cleared .pve-node-cta { background: linear-gradient(135deg, #ffe28a, #d9a300); }
+.pve-node.is-locked .pve-node-cta { background: linear-gradient(135deg, #33465c, #1d2a3a); color: #7f93aa; }
+.pve-chapter-clear {
+    margin-top: 8px;
+    padding: 13px 16px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 13.5px;
+    color: #ffeab0;
+    background: linear-gradient(135deg, rgba(70, 48, 8, .8), rgba(28, 20, 4, .85));
+    border: 1px solid rgba(255, 210, 90, .38);
+}
+
+/* ---- 8. PVE 结算面板 ---- */
+.pve-reward-list { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+.pve-reward-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 13px;
+    border-radius: 9px;
+    font-size: 13px;
+    background: rgba(10, 18, 30, .7);
+    border: 1px solid rgba(120, 165, 220, .2);
+}
+.pve-reward-row b { color: #ffd76e; }
+.pve-reward-row.is-new { border-color: rgba(52, 211, 153, .5); }
+.pve-reward-row.is-new b { color: #7dffc4; }
+.pve-reward-empty { font-size: 12.5px; color: #8aa5c2; text-align: center; padding: 10px; }
+
+/* ---- 9. 保底进度（抽卡面板内） ---- */
+.pity-panel {
+    display: grid;
+    gap: 9px;
+    margin: 12px 0;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(18, 26, 44, .92), rgba(9, 14, 24, .95));
+    border: 1px solid rgba(120, 165, 220, .22);
+}
+.pity-row { display: flex; align-items: center; gap: 10px; font-size: 12px; color: #a9c3de; }
+.pity-label { min-width: 92px; font-weight: 700; }
+.pity-bar { position: relative; flex: 1; height: 9px; border-radius: 6px; background: rgba(4, 10, 18, .85); overflow: hidden; }
+.pity-bar-fill {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #2f9fd6, #8fe4ff);
+    transition: width .6s cubic-bezier(.2, .8, .2, 1);
+}
+.pity-bar-fill.pity-hard { background: linear-gradient(90deg, #d9a300, #ffe58a); }
+.pity-value { min-width: 58px; text-align: right; font-weight: 700; color: #e7f3ff; }
+.pity-note { font-size: 11px; line-height: 1.5; color: #7f9ab8; }
+
+@media (max-width: 720px) {
+    .pve-map-header { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+    .pve-chapter-meta { justify-content: center; }
+    .pve-track-line { display: none; }
+    .pve-node-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+    .pve-node-desc { display: none; }
+}

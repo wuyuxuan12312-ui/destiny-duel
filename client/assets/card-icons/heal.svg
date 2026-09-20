@@ -1,0 +1,16 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor">
+  <!-- Glowing Radiance Ring -->
+  <circle cx="32" cy="32" r="26" stroke="currentColor" stroke-width="2" stroke-dasharray="3 4" fill="none" opacity="0.4" />
+  <!-- Healing Cross -->
+  <path d="M26 12 H38 V26 H52 V38 H38 V52 H26 V38 H12 V26 H26 Z" rx="3" opacity="0.95" />
+  <path d="M28 14 H36 V28 H50 V36 H36 V50 H28 V36 H14 V28 H28 Z" fill="#ffffff" opacity="0.35" />
+  <!-- Sacred Droplet / Dew in Center -->
+  <path d="M32 23 C32 23 28 28 28 32 C28 34.2 29.8 36 32 36 C34.2 36 36 34.2 36 32 C36 28 32 23 32 23 Z" fill="#ffffff" opacity="0.95" />
+  <!-- Life Leaf Accents -->
+  <path d="M15 15 C19 12 22 15 20 19 C17 19 14 17 15 15 Z" fill="#ffffff" opacity="0.75" />
+  <path d="M49 15 C45 12 42 15 44 19 C47 19 50 17 49 15 Z" fill="#ffffff" opacity="0.75" />
+  <!-- Sparkles -->
+  <circle cx="18" cy="46" r="2" fill="#ffffff" opacity="0.8" />
+  <circle cx="46" cy="46" r="2" fill="#ffffff" opacity="0.8" />
+  <circle cx="32" cy="8" r="1.5" fill="#ffffff" opacity="0.9" />
+</svg>

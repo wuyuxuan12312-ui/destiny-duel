@@ -1,0 +1,198 @@
+{
+  "hand_card_limit": {
+    "ruleId": "hand_card_limit",
+    "ruleName": "hand_card_limit",
+    "value": 10,
+    "unit": "",
+    "description": "每名玩家手牌张数上限"
+  },
+  "start_hand_count": {
+    "ruleId": "start_hand_count",
+    "ruleName": "start_hand_count",
+    "value": 4,
+    "unit": "",
+    "description": "对局开始时双方玩家抽取的初始手牌数量"
+  },
+  "energy_per_turn": {
+    "ruleId": "energy_per_turn",
+    "ruleName": "energy_per_turn",
+    "value": 3,
+    "unit": "",
+    "description": "第 2~3 轮每回合的能量覆盖值"
+  },
+  "max_shield_cap": {
+    "ruleId": "max_shield_cap",
+    "ruleName": "单体护盾上限",
+    "value": 50,
+    "unit": "",
+    "description": "角色可重叠积累的最大护盾绝对值上限"
+  },
+  "max_heal_per_turn": {
+    "ruleId": "max_heal_per_turn",
+    "ruleName": "max_heal_per_turn",
+    "value": 30,
+    "unit": "",
+    "description": "单回合治疗上限"
+  },
+  "normal_attack_cost": {
+    "ruleId": "normal_attack_cost",
+    "ruleName": "普通攻击消耗能量",
+    "value": 0,
+    "unit": "",
+    "description": "进行一次基础普通攻击消耗的能量"
+  },
+  "normal_attack_damage": {
+    "ruleId": "normal_attack_damage",
+    "ruleName": "普通攻击伤害",
+    "value": 4,
+    "unit": "",
+    "description": "基础普通攻击造成的固定物理伤害"
+  },
+  "crit_chance": {
+    "ruleId": "crit_chance",
+    "ruleName": "刺客暴击概率",
+    "value": 0.2,
+    "unit": "",
+    "description": "雷电刺客普通攻击触发 2 倍暴击的百分比概率"
+  },
+  "tank_damage_reduction": {
+    "ruleId": "tank_damage_reduction",
+    "ruleName": "坦克减伤常数",
+    "value": 3,
+    "unit": "",
+    "description": "钢铁守卫被动每次受击固定扣减的伤害数值"
+  },
+  "burn_damage_per_turn": {
+    "ruleId": "burn_damage_per_turn",
+    "ruleName": "burn_damage_per_turn",
+    "value": 2,
+    "unit": "",
+    "description": "灼烧每层回合末伤害"
+  },
+  "poison_damage_per_turn": {
+    "ruleId": "poison_damage_per_turn",
+    "ruleName": "poison_damage_per_turn",
+    "value": 2,
+    "unit": "",
+    "description": "中毒每层回合末真实伤害"
+  },
+  "target_turn_count_min": {
+    "ruleId": "target_turn_count_min",
+    "ruleName": "目标最少对战轮数",
+    "value": 6,
+    "unit": "",
+    "description": "平衡性设计预期最少对战回合数"
+  },
+  "target_turn_count_max": {
+    "ruleId": "target_turn_count_max",
+    "ruleName": "目标最多对战轮数",
+    "value": 10,
+    "unit": "",
+    "description": "平衡性设计预期最多对战回合数"
+  },
+  "max_energy": {
+    "ruleId": "max_energy",
+    "ruleName": "max_energy",
+    "value": 10,
+    "unit": "",
+    "description": "能量上限；回合内通过卡牌可超过能量阶梯但受此上限约束"
+  },
+  "initial_energy": {
+    "ruleId": "initial_energy",
+    "ruleName": "initial_energy",
+    "value": 4,
+    "unit": "",
+    "description": "首回合能量（高于第 1~3 轮的覆盖值）"
+  },
+  "nature_heal_amount": {
+    "ruleId": "nature_heal_amount",
+    "ruleName": "nature_heal_amount",
+    "value": 5,
+    "unit": "",
+    "description": "Updated rule nature_heal_amount"
+  },
+  "max_burst_damage_limit": {
+    "ruleId": "max_burst_damage_limit",
+    "ruleName": "max_burst_damage_limit",
+    "value": 50,
+    "unit": "",
+    "description": "单次伤害上限"
+  },
+  "initial_hand_size": {
+    "ruleId": "initial_hand_size",
+    "ruleName": "initial_hand_size",
+    "value": 4,
+    "unit": "",
+    "description": "开局双方各自抽取的手牌数量"
+  },
+  "max_hand_size": {
+    "ruleId": "max_hand_size",
+    "ruleName": "max_hand_size",
+    "value": 10,
+    "unit": "",
+    "description": "手牌上限；超出上限的抽牌直接进入弃牌堆烧掉"
+  },
+  "turn_draw_count": {
+    "ruleId": "turn_draw_count",
+    "ruleName": "turn_draw_count",
+    "value": 1,
+    "unit": "",
+    "description": "第 2 轮起每回合抽牌数量"
+  },
+  "energy_ladder_round_4": {
+    "ruleId": "energy_ladder_round_4",
+    "ruleName": "energy_ladder_round_4",
+    "value": 4,
+    "unit": "",
+    "description": "第 4~7 轮每回合能量覆盖值"
+  },
+  "energy_ladder_round_8": {
+    "ruleId": "energy_ladder_round_8",
+    "ruleName": "energy_ladder_round_8",
+    "value": 5,
+    "unit": "",
+    "description": "第 8 轮起每回合能量覆盖值"
+  },
+  "energy_refill_mode": {
+    "ruleId": "energy_refill_mode",
+    "ruleName": "energy_refill_mode",
+    "value": 1,
+    "unit": "",
+    "description": "1 表示回合初能量为硬覆盖，未花费的能量不结转到下回合"
+  },
+  "shield_decay_ratio": {
+    "ruleId": "shield_decay_ratio",
+    "ruleName": "shield_decay_ratio",
+    "value": 0.5,
+    "unit": "",
+    "description": "回合末未打破的护盾按比例向下取整衰减"
+  },
+  "max_shield": {
+    "ruleId": "max_shield",
+    "ruleName": "max_shield",
+    "value": 50,
+    "unit": "",
+    "description": "护盾叠加上限"
+  },
+  "rising_fury_start_round": {
+    "ruleId": "rising_fury_start_round",
+    "ruleName": "rising_fury_start_round",
+    "value": 9,
+    "unit": "",
+    "description": "从该轮开始每轮伤害递增"
+  },
+  "rising_fury_damage_step": {
+    "ruleId": "rising_fury_damage_step",
+    "ruleName": "rising_fury_damage_step",
+    "value": 1,
+    "unit": "",
+    "description": "递增步长"
+  },
+  "pve_max_stage": {
+    "ruleId": "pve_max_stage",
+    "ruleName": "pve_max_stage",
+    "value": 4,
+    "unit": "",
+    "description": "当前章节关卡总数"
+  }
+}

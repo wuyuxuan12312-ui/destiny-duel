@@ -1,0 +1,172 @@
+{
+  "fire_warrior_skill": {
+    "skillId": "fire_warrior_skill",
+    "characterId": "fire_warrior",
+    "skillName": "烈焰斩",
+    "skillType": "damage_and_burn",
+    "cost": 3,
+    "cooldown": 2,
+    "damage": 18.0,
+    "heal": 0.0,
+    "shield": 0.0,
+    "duration": 2,
+    "chance": 0.0,
+    "procChance": 0.0,
+    "secondaryDamage": 0.0,
+    "effectId": "burn",
+    "effects": [
+      {
+        "type": "damage",
+        "value": 18.0
+      },
+      {
+        "type": "apply_status",
+        "status": "burn",
+        "stacks": 2
+      }
+    ],
+    "description": "造成 18 点伤害，并施加 2 层灼烧"
+  },
+  "iron_guardian_skill": {
+    "skillId": "iron_guardian_skill",
+    "characterId": "iron_guardian",
+    "skillName": "钢铁壁垒",
+    "skillType": "shield_and_flat_reduction",
+    "cost": 2,
+    "cooldown": 2,
+    "damage": 0.0,
+    "heal": 0.0,
+    "shield": 25.0,
+    "duration": 1,
+    "chance": 0.0,
+    "procChance": 0.0,
+    "secondaryDamage": 0.0,
+    "effectId": "flat_shield_wall",
+    "effects": [
+      {
+        "type": "shield",
+        "value": 25.0
+      },
+      {
+        "type": "modify_damage",
+        "subType": "flat_reduction",
+        "value": 3.0
+      }
+    ],
+    "description": "获得 25 点护盾，本回合后续减伤 3 点"
+  },
+  "forest_mage_skill": {
+    "skillId": "forest_mage_skill",
+    "characterId": "forest_mage",
+    "skillName": "自然治愈",
+    "skillType": "heal",
+    "cost": 3,
+    "cooldown": 2,
+    "damage": 0.0,
+    "heal": 20.0,
+    "shield": 0.0,
+    "duration": 0,
+    "chance": 0.0,
+    "procChance": 0.0,
+    "secondaryDamage": 0.0,
+    "effectId": "heal",
+    "effects": [
+      {
+        "type": "heal",
+        "value": 20.0
+      }
+    ],
+    "description": "恢复 20 HP"
+  },
+  "lightning_assassin_skill": {
+    "skillId": "lightning_assassin_skill",
+    "characterId": "lightning_assassin",
+    "skillName": "闪电突袭",
+    "skillType": "damage_and_combo",
+    "cost": 2,
+    "cooldown": 2,
+    "damage": 15.0,
+    "heal": 0.0,
+    "shield": 0.0,
+    "duration": 0,
+    "chance": 0.0,
+    "procChance": 0.0,
+    "secondaryDamage": 0.0,
+    "effectId": "",
+    "effects": [
+      {
+        "type": "damage",
+        "value": 15.0
+      },
+      {
+        "type": "conditional",
+        "condition": "chance",
+        "chance": 0.4,
+        "thenEffects": [
+          {
+            "type": "damage",
+            "value": 10.0,
+            "isElectric": true
+          }
+        ]
+      }
+    ],
+    "description": "造成 15 点伤害，40% 概率追加 10 点雷电伤害"
+  },
+  "ice_mage_skill": {
+    "skillId": "ice_mage_skill",
+    "characterId": "ice_mage",
+    "skillName": "寒冰箭",
+    "skillType": "damage_and_freeze",
+    "cost": 2,
+    "cooldown": 2,
+    "damage": 14.0,
+    "heal": 0.0,
+    "shield": 0.0,
+    "duration": 1,
+    "chance": 0.0,
+    "procChance": 0.0,
+    "secondaryDamage": 0.0,
+    "effectId": "freeze",
+    "effects": [
+      {
+        "type": "damage",
+        "value": 14.0
+      },
+      {
+        "type": "apply_status",
+        "status": "freeze",
+        "stacks": 1
+      }
+    ],
+    "description": "造成 14 点伤害，附带 1 回合冰冻"
+  },
+  "skill_0006": {
+    "skillId": "skill_0006",
+    "characterId": "hero_0006",
+    "skillName": "火卫强袭",
+    "skillType": "damage_skill",
+    "cost": 3,
+    "cooldown": 2,
+    "damage": 7.0,
+    "heal": 0.0,
+    "shield": 0.0,
+    "duration": 1,
+    "chance": 0.0,
+    "procChance": 0.0,
+    "secondaryDamage": 0.0,
+    "effectId": "burn",
+    "effects": [
+      {
+        "type": "damage",
+        "value": 7.0
+      },
+      {
+        "type": "apply_status",
+        "status": "burn",
+        "stacks": 1
+      }
+    ],
+    "description": "消耗 3 能量，造成 7 点高额伤害并施加 1 层灼烧。"
+  }
+}
